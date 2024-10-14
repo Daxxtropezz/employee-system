@@ -45,6 +45,7 @@
                         <th>Fullname</th>
                         <th>Birthdate</th>
                         <th>Age</th>
+                        <th>Email</th>
                         <th>Contact</th>
                         <th>Handle</th>
                     </tr>
@@ -56,6 +57,7 @@
                             <td>{{ $row->fullname }}</td>
                             <td>{{ $row->birthdate }}</td>
                             <td>{{ $row->age }}</td>
+                            <td>{{ $row->email }}</td>
                             <td>{{ $row->contact }}</td>
                             <td>
                                 <button type="button" class="btn btn-primary">Edit</button>

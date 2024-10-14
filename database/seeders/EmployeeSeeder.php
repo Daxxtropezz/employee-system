@@ -23,6 +23,7 @@ class EmployeeSeeder extends Seeder
         DB::table('employees')->insert([
             // 'id' => 1,
             'username' => 'daxxy23',
+            'email' => 'miraflores.john@gmail.com',
             'password' => Hash::make('password'),
             'fullname' => 'John Paul Miraflores',
             'sex' => 'male',
