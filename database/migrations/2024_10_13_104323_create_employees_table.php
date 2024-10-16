@@ -13,14 +13,20 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('fullname');
+            // $table->string('username')->unique();
+            // $table->string('email')->unique();
+            // $table->string('password');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->enum('sex', ['male', 'female']);
             $table->string('contact');
             $table->date('birthdate');
-            $table->bigInteger('age');
+            $table->timestamps();
+        });
+
+        Schema::create('logs', function (Blueprint $table) {
+            $table->id();
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -31,5 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('employees');
+        Schema::dropIfExists('logs');
     }
 };

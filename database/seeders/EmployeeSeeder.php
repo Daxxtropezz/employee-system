@@ -22,16 +22,16 @@ class EmployeeSeeder extends Seeder
 
         DB::table('employees')->insert([
             // 'id' => 1,
-            'username' => 'daxxy23',
-            'email' => 'miraflores.john@gmail.com',
-            'password' => Hash::make('password'),
-            'fullname' => 'John Paul Miraflores',
+            // 'username' => 'daxxy23',
+            // 'email' => 'miraflores.john@gmail.com',
+            // 'password' => Hash::make('password'),
+            'first_name' => 'John Paul',
+            'last_name' => 'Miraflores',
             'sex' => 'male',
             'contact' => '+639561901685',
             'birthdate' => $birthdate,
-            'age' => $age,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => Carbon::now('Asia/Manila'),
+            'updated_at' => Carbon::now('Asia/Manila'),
         ]);
     }
 }
