@@ -69,8 +69,12 @@
                             <td>{{ $row->contact }}</td>
                             <td>{{ $row->created_at->diffForHumans() }}</td>
                             <td>
-                                <a href="/edit/{{ $row->id }}" class="btn btn-success">Edit</a>
-                                <button type="button" class="btn btn-danger">Disable</button>
+                                <a href="/edit/{{ $row->id }}" class="btn btn-success">Edit <i
+                                        class="fa-regular fa-pen-to-square"></i></a>
+                                <button type="button" class="btn btn-danger">Disable <i
+                                        class="fa-solid fa-ban"></i></button>
+                                <a href="/delete/{{ $row->id }}" type="button" class="btn btn-danger">Remove <i
+                                        class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

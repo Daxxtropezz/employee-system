@@ -50,4 +50,11 @@ class EmployeeController extends Controller
         $data->update($request->all());
         return redirect()->route('employee')->with('success', 'An employee has been updated to the database!');
     }
+
+    public function deleteemployee(Request $request, $id)
+    {
+        $data = Employee::find($id);
+        $data->delete();
+        return redirect()->route('employee')->with('success', 'An employee has been deleted to the database!');
+    }
 }
