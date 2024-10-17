@@ -58,10 +58,8 @@
                         @endphp
                         @foreach ($data as $index => $row)
                             <tr>
-                                {{-- <th>{{ $row->id }}</th> --}}
                                 <th>{{ $index + $data->firstItem() }}</th>
-                                <td>
-                                    {{ $row->first_name . ' ' . $row->last_name }}</td>
+                                <td>{{ $row->first_name . ' ' . $row->last_name }}</td>
                                 <td>{{ date('M d, Y', strtotime($row->birthdate)) }}</td>
                                 <td>{{ Carbon::parse($row->birthdate)->age }}</td>
                                 <td>+63{{ $row->contact }}</td>
@@ -71,10 +69,7 @@
                                             class="fa-regular fa-pen-to-square"></i></a>
                                     <a href="#" data-id="{{ $row->id }}"
                                         data-name="{{ $row->first_name . ' ' . $row->last_name }}"
-                                        class="btn btn-danger archive">Archive
-                                        <i class="fa-solid fa-ban"></i></a>
-                                    {{-- <a href="/delete/{{ $row->id }}"  class="btn btn-danger">Remove <i
-                                            class="fa-solid fa-trash"></i></a> --}}
+                                        class="btn btn-danger archive">Archive <i class="fa-solid fa-ban"></i></a>
                                 </td>
                             </tr>
                         @endforeach

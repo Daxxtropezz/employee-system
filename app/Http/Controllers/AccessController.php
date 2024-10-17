@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\UserAccess;
 use App\Models\Employee;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AccessController extends Controller
 {
@@ -15,15 +17,27 @@ class AccessController extends Controller
         return view('Login');
     }
 
-    public function loginDetails(Request $request)
+    public function loginPromise(Request $request)
     {
-        // dd($request->only('email', 'password'));
-        if (Auth::attempt($request->only('email', 'password'))) {
-            dd('Login successful');
-            return redirect('/');
+        $userAccess = UserAccess::where('email', '=', $request->email)->first();
+        if ($userAccess) {
+            if (Hash::check($request->password, $userAccess->password)) {
+                $request->session()->put('id', $userAccess->id);
+                return redirect('/dashboard');
+            }
+            return redirect('/'); // Incorrect credentials
         }
-        dd('Invalid credentials', $request->only('email', 'password'));
-        return redirect('login');
+
+        return redirect('/'); // User not found
+    }
+    public function dashboard()
+    {
+        $user_data = null;
+        if (Session::has('id')) {
+            $user_data = UserAccess::where('id', '=', Session::get('id'))->first();
+        }
+        $data = Employee::whereNull('archived_at')->paginate(5);
+        return view('welcome', compact('user_data', 'data'));
     }
 
     public function registerAdmin()
@@ -56,6 +70,14 @@ class AccessController extends Controller
             ]
         );
 
-        return redirect()->route('login')->with('success', 'A new employee has been added to the database!');
+        return redirect()->route('/')->with('success', 'A new employee has been added to the database!');
+    }
+
+    public function logout()
+    {
+        if (Session::has('id')) {
+            Session::pull('id');
+            return redirect('/');
+        }
     }
 }

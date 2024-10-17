@@ -293,7 +293,7 @@
                             </ul>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="{{ asset('/') }}" class="nav-link">
+                            <a href="{{ asset('/dashboard') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -310,6 +310,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ asset('/logout') }}" class="nav-link">
+                                <i class="fa-solid fa-delete-left"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -320,7 +328,14 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">John Paul Miraflores</a>
+                        <a href="#" class="d-block">
+                            @if (isset($user_data))
+                                <!-- Check if user_data is set -->
+                                <a href="#" class="d-block">{{ $user_data->username }}</a>
+                            @else
+                                <a href="#" class="d-block">Guest</a> <!-- Fallback if user is not logged in -->
+                            @endif
+                        </a>
                     </div>
                 </div>
             </div>
