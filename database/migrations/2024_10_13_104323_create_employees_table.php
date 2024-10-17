@@ -40,8 +40,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->unsignedBigInteger('user_data')->nullable();
-            $table->foreign('user_data')->references('id')->on('employees')->onDelete('cascade');
             $table->enum('user_type', ['user', 'admin']);
+            $table->string('remember_token')->nullable();
+            $table->foreign('user_data')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }

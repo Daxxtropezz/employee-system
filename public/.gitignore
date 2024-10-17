@@ -1,1 +1,33 @@
 template
+
+# https://github.com/ColorlibHQ/AdminLTE/releases/tag/v3.1.0
+# composer create-project Laravel/Laravel laracrud
+
+# php artisan make:model Employee -mc
+
+# php artisan db:seed --class=EmployeeSeeder
+
+# change in .env - database to file | SESSION_DRIVER=file
+# php artisan cache:table
+# php artisan migrate:fresh #used to deliver database tables to sql
+# php artisan cache:clear
+
+# php artisan make:model modelName
+# php artisan make:controller controllerName
+# php artisan make:views
+
+# https://stackoverflow.com/questions/66133986/sqlstate42s02-base-table-or-view-not-found-1146-table-cloud18i-dbpethu-sess
+# https://getbootstrap.com/docs/5.0/content/tables/
+# https://laravel.com/docs/8.x/seeding#writing-seeders
+
+
+# docker
+# https://learn.microsoft.com/en-us/windows/wsl/install
+# https://docs.docker.com/desktop/wsl/
+
+# logo fonts
+# https://www.1001fonts.com/japanese-fonts.html
+
+# rand
+# https://inertiajs.com/
+# vuejs

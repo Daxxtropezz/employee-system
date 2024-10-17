@@ -11,7 +11,7 @@ class UserAccess extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username', 'email', 'password', 'user_data', 'user_type'];
+    protected $fillable = ['username', 'email', 'password', 'user_data', 'user_type', 'remember_token'];
 
     public static function boot()
     {
@@ -20,7 +20,7 @@ class UserAccess extends Model
         // Log creation
         static::created(function ($employee) {
             Log::create([
-                'action' => 'Record successfully created for employee #' . $employee->id . '.',
+                'action' => 'New Record successfully created for employee #' . $employee->id . '.',
                 'sys_table' => 'Employee',
                 'table_id' => $employee->id,
                 'changes' => null,
@@ -30,7 +30,7 @@ class UserAccess extends Model
         // Log update
         static::updated(function ($employee) {
             Log::create([
-                'action' => 'Record successfully updated for employee #' . $employee->id . '.',
+                'action' => 'New Record successfully updated for employee #' . $employee->id . '.',
                 'sys_table' => 'Employee',
                 'table_id' => $employee->id,
                 'changes' => json_encode($employee->getChanges()),

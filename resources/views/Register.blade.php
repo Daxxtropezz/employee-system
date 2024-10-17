@@ -1,20 +1,20 @@
 @extends('layout.access')
 
 @section('content')
-    <form action="/registerInsert" method="POST">
+    <form action="{{ route('registerUser') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-6">
                 <div class="register-box">
                     <div class="card card-outline card-primary">
                         <div class="card-header text-center">
-                            <div class="h1">Credentials</div>
+                            <div class="h1">Register</div>
                         </div>
                         <div class="card-body">
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
-                                        <span class="fas fa-envelope"></span>
+                                        <span class="fas fa-user"></span>
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" id="username" name="username"
@@ -57,12 +57,13 @@
                                                 <span class="fas fa-user"></span>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="First Name">
+                                        <input type="text" class="form-control" name="first_name"
+                                            placeholder="First Name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Last Name">
+                                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +73,7 @@
                                         <span class="fa-solid fa-cake-candles"></span>
                                     </div>
                                 </div>
-                                <input type="date" class="form-control" placeholder="Birthdate">
+                                <input type="date" class="form-control" name="birthdate" placeholder="Birthdate">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
@@ -99,7 +100,7 @@
                             {{-- <a href="/registerDetails" style="color: #FFFFFF; text-decoration: none;" data-bs-toggle="modal"
                                 data-bs-target="#staticModal2" class="btn btn-primary d-flex justify-content-center"><i
                                     class="fa-solid fa-book-open-reader"></i> Open Sign-In
-                                Credentials</a> --}}
+                                Credentials</a>  --}}
                         </div>
                     </div>
                 </div>

@@ -23,6 +23,8 @@ Route::get('/toggle/{id}', [EmployeeController::class, 'toggleemployee'])->name(
 
 // Login/Register
 Route::get('/login', [AccessController::class, 'loginAdmin'])->name('login');
+Route::post('/loginPromise', [AccessController::class, 'loginDetails'])->name('loginPromise');
 Route::get('/register', [AccessController::class, 'registerAdmin'])->name('register');
-Route::post('/registerInsert', [AccessController::class, 'registerDetails'])->name('registerInsert');
+Route::post('/registerUser', [AccessController::class, 'registerDetails'])->name('registerUser');
+// Route::post('/insertCreds', [EmployeeController::class, 'registerDetails'])->name('insertCreds');
 // Route::post('/registerAccount', [AccessController::class, 'registerAdmin'])->name('registerAccount');
