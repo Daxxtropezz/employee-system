@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Employee::all();
+        if ($request->has('search')) {
+            $data = Employee::where('first_name', 'LIKE', '%' . $request->search . '%')->whereNull('archived_at')->paginate(5);
+        } else {
+            $data = Employee::whereNull('archived_at')->paginate(5);
+        }
+        // $data = Employee::whereNull('archived_at')->get();
+        // $data = Employee::all();
         // dd($data);
         return view('Employee', compact('data'));
     }
@@ -21,18 +29,6 @@ class EmployeeController extends Controller
 
     public function insertemployee(Request $request)
     {
-
-        $request->merge([
-            'contact' => '+63' . $request->contact
-        ]);
-
-        // $request->validate([
-        //     'fullname' => 'required|string|max:255',
-        //     'contact' => 'required|string|max:10',
-        //     'birthdate' => 'required|date',
-        //     'sex' => 'required|in:male,female',
-        // ]);
-
         // dd($request->all()); //for debugging
         Employee::create($request->all());
         return redirect()->route('employee')->with('success', 'A new employee has been added to the database!');
@@ -51,10 +47,25 @@ class EmployeeController extends Controller
         return redirect()->route('employee')->with('success', 'An employee has been updated to the database!');
     }
 
-    public function deleteemployee(Request $request, $id)
+    // public function deleteemployee($id)
+    // {
+    //     $data = Employee::find($id);
+    //     $data->delete();
+    //     return redirect()->route('employee')->with('success', 'An employee has been deleted to the database!');
+    // }
+
+    public function toggleemployee($id)
     {
-        $data = Employee::find($id);
-        $data->delete();
-        return redirect()->route('employee')->with('success', 'An employee has been deleted to the database!');
+        $employee = Employee::findOrFail($id);
+
+        if (is_null($employee->archived_at)) {
+            $employee->archived_at = Carbon::now('Asia/Manila');
+        } else {
+            $employee->archived_at = null;
+        }
+
+        $employee->save();
+
+        return back()->with('status', 'Employee status updated successfully.');
     }
 }

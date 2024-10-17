@@ -21,12 +21,27 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female']);
             $table->string('contact');
             $table->date('birthdate');
+            $table->timestamp('archived_at')->nullable();
             $table->timestamps();
         });
 
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->string('action');
+            $table->string('sys_table')->nullable();
+            $table->integer('table_id');
+            $table->string('changes')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('user_accesses', function (Blueprint $table) {
+            $table->id();
+            $table->string('username')->unique();
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->unsignedBigInteger('user_data')->nullable();
+            $table->foreign('user_data')->references('id')->on('employees')->onDelete('cascade');
+            $table->enum('user_type', ['user', 'admin']);
             $table->timestamps();
         });
     }
@@ -38,5 +53,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('employees');
         Schema::dropIfExists('logs');
+        Schema::dropIfExists('user_accesses');
     }
 };

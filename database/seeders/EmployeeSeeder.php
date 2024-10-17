@@ -33,5 +33,13 @@ class EmployeeSeeder extends Seeder
             'created_at' => Carbon::now('Asia/Manila'),
             'updated_at' => Carbon::now('Asia/Manila'),
         ]);
+
+        DB::table('logs')->insert([
+            'action' => 'Seed data added.',
+            'sys_table' => 'Employee',
+            'table_id' => 1,
+            'created_at' => Carbon::now('Asia/Manila'),
+            'updated_at' => Carbon::now('Asia/Manila'),
+        ]);
     }
 }

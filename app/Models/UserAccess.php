@@ -7,36 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 
-class Employee extends Model
+class UserAccess extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name', 'last_name', 'contact', 'birthdate', 'sex'];
-
-    public $timestamps = true;
-
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->timezone('Asia/Manila');
-    }
-
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->timezone('Asia/Manila');
-    }
+    protected $fillable = ['username', 'email', 'password', 'user_data', 'user_type'];
 
     public static function boot()
     {
         parent::boot();
-
-        static::creating(function ($model) {
-            $model->created_at = Carbon::now('Asia/Manila');
-            $model->updated_at = Carbon::now('Asia/Manila');
-        });
-
-        static::updating(function ($model) {
-            $model->updated_at = Carbon::now('Asia/Manila');
-        });
 
         // Log creation
         static::created(function ($employee) {

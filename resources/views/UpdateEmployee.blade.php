@@ -1,22 +1,23 @@
-<!doctype html>
-<html lang="en">
+@extends('layout.admin')
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Employees</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Employees</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>CRUD Table</title>
-</head>
-
-<body class="mr-4">
-
-    <h1 class="text-center mb-4">Update Employee</h1>
-
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
                 <div class="card">
@@ -36,6 +37,7 @@
                             <div class="mb-3">
                                 <label for="contact" class="form-label">Contact</label>
                                 <div class="d-flex align-items-center">
+                                    <span class="me-2">+63</span>
                                     <input type="text" maxlength="10" name="contact"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control"
                                         id="contact" placeholder="9123456789" value="{{ $data->contact }}">
@@ -51,15 +53,11 @@
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-success">Update</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-</body>
-
-</html>
+@endsection
