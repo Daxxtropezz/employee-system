@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login or Register</title>
+    <title>Simple CRUD</title>
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="custom/login.styling.css">
     <!-- FONT AWESOME -->
@@ -120,7 +120,7 @@
                                     class="fa-solid fa-book-open-reader"></i> Open Sign-In
                                 Credentials</a>  --}}
                     <label class="check">
-                        <input type="checkbox" checked="checked">
+                        <input type="checkbox" checked="checked" name="checkbox">
                         <span class="checkmark">I accept the <a href="#">Terms and Conditions</a>.</span>
                     </label>
                     <input type="submit" value="Create account" class="btn solid">

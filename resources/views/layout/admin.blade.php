@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Employee System</title>
+    <title>Simple CRUD</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('template/plugins/summernote/summernote-bs4.min.css') }}">
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     {{-- modal start --}}
     <div class="modal fade" id="staticModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticModal1Label" aria-hidden="true">
@@ -89,19 +89,19 @@
         </div>
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-dark">
+        <nav class="main-header navbar navbar-expand navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                {{-- <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li>
+                </li> --}}
             </ul>
 
             <!-- Right navbar links -->
@@ -218,6 +218,22 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li> --}}
+                <!-- Sidebar user panel (optional) -->
+                <li>
+                    {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="{{ }}" class="img-circle elevation-2" alt="User Image">
+                            <i class="fa-solid fa-user-doctor img-circle elevation-2"></i>
+                        </div>
+                        <div class="info">
+                            
+                        </div>
+                    </div> --}}
+                    <a href="#" class="nav-item">
+                        <a href="#" class="nav-link">Welcome,
+                            {{ $user_data ? $user_data->username : back() }}!</a>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -234,12 +250,13 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-light-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
                 <img src="{{ asset('assets/5.png') }}" alt="CG Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Admin Dashboard</span>
+                <span class="brand-text font-weight-light"
+                    style="text-transform: capitalize;">{{ $user_data->user_type }} Dashboard</span>
             </a>
 
             <!-- Sidebar -->
@@ -293,7 +310,7 @@
                             </ul>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="{{ asset('/dashboard') }}" class="nav-link">
+                            <a href="{{ asset('dashboard') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -302,7 +319,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ asset('/employee') }}" class="nav-link">
+                            <a href="{{ asset('employee') }}" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
                                     Employees
@@ -311,7 +328,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ asset('/logout') }}" class="nav-link">
+                            <a href="#" class="nav-link logout">
                                 <i class="fa-solid fa-delete-left"></i>
                                 <p>
                                     Logout
@@ -321,23 +338,7 @@
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex fixed-bottom">
-                    <div class="image">
-                        <img src="{{ asset('assets/john_paul.jpg') }}" class="img-circle elevation-2"
-                            alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">
-                            @if (isset($user_data))
-                                <!-- Check if user_data is set -->
-                                <a href="#" class="d-block">{{ $user_data->username }}</a>
-                            @else
-                                <a href="#" class="d-block">Guest</a> <!-- Fallback if user is not logged in -->
-                            @endif
-                        </a>
-                    </div>
-                </div>
+
             </div>
             <!-- /.sidebar -->
         </aside>
@@ -348,7 +349,7 @@
 
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        <aside class="control-sidebar control-sidebar-light">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
@@ -434,6 +435,29 @@
                         text: "Record of " + employee_name + " has been archived.",
                         icon: "success"
                     });
+                }
+            });
+        })
+        $('.logout').click(function() {
+            var employee_id = $(this).attr('data-id');
+            var employee_name = $(this).attr('data-name');
+            Swal.fire({
+                title: "Are you sure you want to logout?",
+                // text: "Are you sure you want to put the data of  " + employee_name + " to archives?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Confirm",
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "{{ asset('/logout') }}";
+                    // Swal.fire({
+                    //     title: "Archived!",
+                    //     text: "Record of " + employee_name + " has been archived.",
+                    //     icon: "success"
+                    // });
                 }
             });
         })

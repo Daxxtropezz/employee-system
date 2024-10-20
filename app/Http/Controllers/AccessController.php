@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 class AccessController extends Controller
 {
+
     public function loginAdmin()
     {
         return view('Login');
@@ -31,21 +32,27 @@ class AccessController extends Controller
         $userAccess = UserAccess::where('username', '=', $request->username)->first();
         if ($userAccess) {
             if (Hash::check($request->password, $userAccess->password)) {
-                $request->session()->put('id', $userAccess->id);
+                $request->session()->put('loginId', $userAccess->id);
                 return redirect('/dashboard');
             }
             return redirect('/')->withErrors(['password' => 'Incorrect password.']);
         }
         return redirect('/')->withErrors(['username' => 'User not found.']);
     }
+
     public function dashboard()
     {
-        $user_data = null;
-        if (Session::has('id')) {
-            $user_data = UserAccess::where('id', '=', Session::get('id'))->first();
+        if (Session::has('loginId')) {
+            $user_data = UserAccess::where('id', '=', Session::get('loginId'))->first();
+            if (!$user_data) {
+                return redirect('/')->with('fail', 'You need to log in first!');
+            }
+        } else {
+            return redirect('/')->with('fail', 'You need to log in first!');
         }
+        $user_count = UserAccess::where('user_type', '=', 'user')->count();
         $data = Employee::whereNull('archived_at')->paginate(5);
-        return view('welcome', compact('user_data', 'data'));
+        return view('welcome', compact('user_data', 'data', 'user_count'));
     }
 
     public function registerDetails(Request $request)
@@ -53,18 +60,17 @@ class AccessController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
-            'birthdate' => 'required|date|before:today|date_format:Y-m-d|after:-15 years',
+            'birthdate' => 'required|date|before:today|date_format:Y-m-d',
             'contact' => 'required|string|max:15',
             'sex' => 'required|in:male,female',
-            'username' => 'required|string|alpha_num|min:3|max:20|unique:user_access,username',
-            'email' => 'required|email|unique:user_access,email',
-            'password' => 'required|string|min:6|confirmed',
+            'username' => 'required|string|alpha_num|min:3|max:20|unique:user_accesses,username',
+            'email' => 'required|email|unique:user_accesses,email',
+            'password' => 'required|string|min:6',
+            'checkbox' => 'required|accepted',
         ], [
             'first_name.required' => 'First name is required.',
             'last_name.required' => 'Last name is required.',
             'birthdate.required' => 'Birthdate is required.',
-            'birthdate.before' => 'Birthdate must be a date before today.',
-            'birthdate.after' => 'You must be at most 15 years old.',
             'contact.required' => 'Contact number is required.',
             'sex.required' => 'Sex is required.',
             'username.required' => 'Username is required.',
@@ -74,7 +80,7 @@ class AccessController extends Controller
             'email.unique' => 'This email is already registered.',
             'password.required' => 'Password is required.',
             'password.min' => 'Password must be at least 6 characters long.',
-            'password.confirmed' => 'Password confirmation does not match.',
+            'checkbox' => 'Make sure you read the terms and conditions.',
         ]);
 
         // dd($request->all()); //for debugging
@@ -105,8 +111,8 @@ class AccessController extends Controller
 
     public function logout()
     {
-        if (Session::has('id')) {
-            Session::pull('id');
+        if (Session::has('loginId')) {
+            Session::pull('loginId');
             return redirect('/');
         }
     }

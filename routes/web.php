@@ -1,17 +1,20 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', function () {
-    return view('welcome');
-});
-Route::get('/dashboard', [AccessController::class, 'dashboard'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('welcome');
+// });
+Route::get('/dashboard', [AccessController::class, 'dashboard']);
+// Route::get('/dashboard', [AccessController::class, 'dashboard']) -> middleware('isLoggedIn');
+
 
 // Employee
 // Read
-Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
+Route::get('/employee', [EmployeeController::class, 'employeeTable']);
 // Create
 Route::get('/new',    [EmployeeController::class, 'addemployee'])->name('new');
 Route::post('/insert', [EmployeeController::class, 'insertemployee'])->name('insert');
@@ -25,8 +28,5 @@ Route::get('/toggle/{id}', [EmployeeController::class, 'toggleemployee'])->name(
 // Login/Register
 Route::get('/', [AccessController::class, 'loginAdmin'])->name('login');
 Route::post('/login', [AccessController::class, 'loginPromise'])->name('loginPromise');
-// Route::get('/register', [AccessController::class, 'registerAdmin'])->name('register');
 Route::post('/register', [AccessController::class, 'registerDetails'])->name('registerUser');
-Route::get('/logout', [AccessController::class, 'logout'])->name('logout');
-// Route::post('/insertCreds', [EmployeeController::class, 'registerDetails'])->name('insertCreds');
-// Route::post('/registerAccount', [AccessController::class, 'registerAdmin'])->name('registerAccount');
+Route::get('/logout', [AccessController::class, 'logout']);
