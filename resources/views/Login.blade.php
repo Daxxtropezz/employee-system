@@ -11,23 +11,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form action="" class="sign-in-form">
+                <form action="/login" method="POST" class="sign-in-form">
+                    @csrf
                     <h2 class="title">Login</h2>
+                    @if ($errors->any())
+                        <script>
+                            @foreach ($errors->all() as $error)
+                                let errorMessages += '<p>{{ $error }}</p>';
+                            @endforeach
+
+                            if (errorMessages) {
+                                toastr.error(errorMessages);
+                                document.body.classList.add('has-errors');
+                                setTimeout(function() {
+                                    document.body.classList.remove('has-errors');
+                                }, 3000);
+                            }
+                        </script>
+                    @endif
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" name="username" autocomplete="username" placeholder="Username"
-                            required="yes">
+                        <input type="text" name="username" autocomplete="username" placeholder="Username">
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" name="password" autocomplete="current-password" placeholder="Password"
-                            id="id_password" required="yes">
+                            id="id_password">
                         <i class="far fa-eye" id="togglePassword" style="cursor: pointer;"></i>
                     </div>
                     <input type="submit" value="Sign in" class="btn solid">
@@ -38,23 +58,67 @@
                     </div>
                     <p class="text-mode">Change theme</p> --}}
                 </form>
-                <form action="" class="sign-up-form">
+                <form action="/register" method="POST" class="sign-up-form">
+                    @csrf
                     <h2 class="title">Register</h2>
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <script>
+                                toastr.error('<p>{{ $error }}</p>')
+                                document.body.classList.add('has-errors');
+                                setTimeout(function() {
+                                    document.body.classList.remove('has-errors');
+                                }, 3000);
+                            </script>
+                        @endforeach
+                    @endif
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" name="username" autocomplete="username" placeholder="Username"
-                            required="yes">
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="Username">
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" name="email" autocomplete="email" placeholder="Email" required="yes">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" name="password" autocomplete="current-password" placeholder="Password"
-                            id="id_reg" required="yes">
-                        <i class="far fa-eye" id="toggleReg" style="cursor: pointer;"></i>
+                        <input type="password" class="form-control" id="id_rpassword" name="password"
+                            placeholder="Password">
+                        <i class="far fa-eye" id="toggleRPassword" style="cursor: pointer;"></i>
                     </div>
+                    <h2 class="title"><b>User</b> Info</h2>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-cake-candles"></i>
+                        <input type="date" class="form-control" name="birthdate" id="birthdate"
+                            placeholder="Birthdate">
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-phone"></i>
+                        <input type="text" maxlength="10" name="contact"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control"
+                            placeholder="9123456789">
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-venus-mars"></i>
+                        <select name="sex" id="sex">
+                            <option selected disabled>Select your Sex</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    {{-- <a href="/registerDetails" style="color: #FFFFFF; text-decoration: none;" data-bs-toggle="modal"
+                                data-bs-target="#staticModal2" class="btn btn-primary d-flex justify-content-center"><i
+                                    class="fa-solid fa-book-open-reader"></i> Open Sign-In
+                                Credentials</a>  --}}
                     <label class="check">
                         <input type="checkbox" checked="checked">
                         <span class="checkmark">I accept the <a href="#">Terms and Conditions</a>.</span>
@@ -83,8 +147,8 @@
                 {{-- <img src="img/register.svg" class="image" alt=""> --}}
             </div>
         </div>
+        {{-- toastr() - > success('Data has been saved successfully!'); --}}
     </div>
 
     <script src="custom/login.function.js"></script>
-
 </body>

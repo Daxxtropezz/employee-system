@@ -1,3 +1,21 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const birthdateInput = document.getElementById("birthdate");
+
+    // Calculate the latest valid date (15 years ago from today)
+    const today = new Date();
+    const maxDate = new Date(
+        today.getFullYear() - 16,
+        today.getMonth(),
+        today.getDate()
+    );
+
+    // Format the date to YYYY-MM-DD for the input's max attribute
+    const formattedMaxDate = maxDate.toISOString().split("T")[0];
+
+    // Set the max attribute to restrict birthdates
+    birthdateInput.setAttribute("max", formattedMaxDate);
+});
+
 const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const container = document.querySelector(".container");
@@ -32,8 +50,8 @@ togglePassword.addEventListener("click", function(e) {
     this.classList.toggle("fa-eye-slash");
 });
 
-const toggleReg = document.querySelector("#toggleReg");
-const pass = document.querySelector("#id_reg");
+const toggleReg = document.querySelector("#toggleRPassword");
+const pass = document.querySelector("#id_rpassword");
 
 toggleReg.addEventListener("click", function(e) {
     const type = pass.getAttribute("type") === "password" ? "text" : "password";

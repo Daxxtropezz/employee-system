@@ -11,7 +11,7 @@ class UserAccess extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['username', 'email', 'password', 'user_data'];
+    protected $fillable = ['username', 'email', 'password', 'user_data', 'remember_token'];
 
     public static function boot()
     {

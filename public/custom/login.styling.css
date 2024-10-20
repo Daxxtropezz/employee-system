@@ -7,7 +7,7 @@
     --bg-input: #e0e0e0;
     --input-icon: #8a8a8a;
     --input: #333;
-    --input-hover: #222;
+    --input-hover: #4e4e4e;
     --btn-color: #006eff;
     --btn-text: #fff;
     --btn-hover: #4d006eff84e2;
@@ -22,6 +22,15 @@
     --pass-hover-color: #006eff;
     --keyboard-color: #e0e0e0;
     --key-letter: #333;
+}
+
+.has-errors {
+    --bg-round-a: #ff0000;
+    /* Change to red or any color for errors */
+}
+
+.some-element {
+    background-color: var(--bg-round-a);
 }
 
 
@@ -226,7 +235,7 @@ form.sign-up-form {
     outline: none;
     border-radius: 49px;
     cursor: pointer;
-    background-color: var(--btn-color);
+    background-color: var(--bg-round-a);
     color: var(--btn-text);
     text-transform: uppercase;
     font-weight: 600;
@@ -502,6 +511,21 @@ form.sign-up-form {
 
 .keyboard__key--dark {
     background: rgba(0, 0, 0, 0.25);
+}
+
+
+/* NEW CUSTOM OPTION BUTTON */
+
+select {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    font-size: 1em;
+    outline: none;
+    appearance: none;
+    /* Remove default arrow styling */
+    cursor: pointer;
 }
 
 

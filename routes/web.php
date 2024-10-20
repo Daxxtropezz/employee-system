@@ -24,9 +24,9 @@ Route::get('/toggle/{id}', [EmployeeController::class, 'toggleemployee'])->name(
 
 // Login/Register
 Route::get('/', [AccessController::class, 'loginAdmin'])->name('login');
-Route::post('/loginPromise', [AccessController::class, 'loginPromise'])->name('loginPromise');
-Route::get('/register', [AccessController::class, 'registerAdmin'])->name('register');
-Route::post('/registerUser', [AccessController::class, 'registerDetails'])->name('registerUser');
+Route::post('/login', [AccessController::class, 'loginPromise'])->name('loginPromise');
+// Route::get('/register', [AccessController::class, 'registerAdmin'])->name('register');
+Route::post('/register', [AccessController::class, 'registerDetails'])->name('registerUser');
 Route::get('/logout', [AccessController::class, 'logout'])->name('logout');
 // Route::post('/insertCreds', [EmployeeController::class, 'registerDetails'])->name('insertCreds');
 // Route::post('/registerAccount', [AccessController::class, 'registerAdmin'])->name('registerAccount');
