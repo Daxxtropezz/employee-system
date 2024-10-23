@@ -462,6 +462,7 @@
             });
         })
     </script>
+    <script src="custom/login.function.js"></script>
     {{-- custom end --}}
 </body>
 

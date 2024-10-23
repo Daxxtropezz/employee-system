@@ -98,8 +98,7 @@
                     </div>
                     <div class="input-field">
                         <i class="fa-solid fa-cake-candles"></i>
-                        <input type="date" class="form-control" name="birthdate" id="birthdate"
-                            placeholder="Birthdate">
+                        <input type="date" class="form-control" name="birthdate" id="birthdate">
                     </div>
                     <div class="input-field">
                         <i class="fas fa-phone"></i>

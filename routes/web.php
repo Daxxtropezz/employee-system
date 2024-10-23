@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/dashboard', function () {
 //     return view('welcome');
 // });
-Route::get('/dashboard', [AccessController::class, 'dashboard']);
-// Route::get('/dashboard', [AccessController::class, 'dashboard']) -> middleware('isLoggedIn');
-
+Route::get('/dashboard', [AccessController::class, 'dashboard'])->middleware('guest');
+// Route::get('/dashboard', [AccessController::class, 'dashboard'])->middleware('isloggedin');
 
 // Employee
 // Read
-Route::get('/employee', [EmployeeController::class, 'employeeTable']);
+Route::get('/employee', [EmployeeController::class, 'employeeTable'])->name('employee');
 // Create
 Route::get('/new',    [EmployeeController::class, 'addemployee'])->name('new');
 Route::post('/insert', [EmployeeController::class, 'insertemployee'])->name('insert');
@@ -26,7 +25,7 @@ Route::post('/update/{id}', [EmployeeController::class, 'updateemployee'])->name
 Route::get('/toggle/{id}', [EmployeeController::class, 'toggleemployee'])->name('employee.toggle');
 
 // Login/Register
-Route::get('/', [AccessController::class, 'loginAdmin'])->name('login');
-Route::post('/login', [AccessController::class, 'loginPromise'])->name('loginPromise');
-Route::post('/register', [AccessController::class, 'registerDetails'])->name('registerUser');
+Route::get('/', [AccessController::class, 'loginAdmin'])->name('login')->middleware('guest');
+Route::post('/login', [AccessController::class, 'loginPromise'])->name('loginPromise')->middleware('guest');
+Route::post('/register', [AccessController::class, 'registerDetails'])->name('registerUser')->middleware('guest');
 Route::get('/logout', [AccessController::class, 'logout']);
